@@ -39,3 +39,5 @@ const addUser = (user) => {
     userItems.unshift({ user_id: newId, name, username, email, role, password });
     return { user_id: newId };
 };
+
+export { listAllUsers, findUserById, addUser };
