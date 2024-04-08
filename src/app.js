@@ -1,5 +1,5 @@
 import express from 'express';
-import api from './api/index.js';
+import api from './api/indexUser.js';
 
 const app = express();
 app.use(express.json());
