@@ -1,7 +1,7 @@
 import express from 'express';
 
 const app = express();
-app.use('/public', express.static('public'));
+app.use(express.json());
 
 app.get('/api/v1/cat', (req, res) => {
     const cat = {

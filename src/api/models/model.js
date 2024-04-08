@@ -1,4 +1,3 @@
-// mock data
 const catItems = [
     {
         cat_id: 9592,
