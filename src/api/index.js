@@ -5,3 +5,5 @@ const router = express.Router();
 
 router.use('/cats', catRouter);
 
+export default router;
+
