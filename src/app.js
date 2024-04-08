@@ -1,9 +1,12 @@
 import express from 'express';
+import api from './api/index.js';
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api/v1', api);
 
-app.get('/api/v1/cat', (req, res) => {
+app.get('/', (req, res) => {
     const cat = {
         cat_id: 1,
         name: 'Whiskers',

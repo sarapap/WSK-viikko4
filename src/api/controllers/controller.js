@@ -1,4 +1,4 @@
-import { addCat, findCatById, listAllCats } from "api/models/model.js";
+import { addCat, findCatById, listAllCats } from "../models/model.js";
 
 const getCat = (req, res) => {
     res.json(listAllCats());
