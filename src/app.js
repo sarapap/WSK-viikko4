@@ -1,9 +1,13 @@
 import express from 'express';
+import api from './api/indexUser.js';
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static('public'));
+app.use('/api/v1', api);
 
-app.get('/api/v1/cat', (req, res) => {
+app.get('/', (req, res) => {
     const cat = {
         cat_id: 1,
         name: 'Whiskers',
@@ -15,7 +19,5 @@ app.get('/api/v1/cat', (req, res) => {
     res.json(cat);
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
+export default app;
 
