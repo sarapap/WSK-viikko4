@@ -14,7 +14,8 @@ const createThumbnail = async (req, res, next) => {
         .resize(160, 160)
         .png()
         .toFile(`${req.file.destination}/${filename}_thumb.${extension}`)
-    next()
+        .then(() => next())
+
 };
 
 export { createThumbnail };

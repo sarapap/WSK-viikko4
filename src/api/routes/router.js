@@ -41,8 +41,12 @@ catRouter.route('/')
     .get(getCat)
     .post(upload.single('file'),
         createThumbnail,
-        postCat);
+        postCat
+    );
 
-catRouter.route('/:id').get(getCatById).put(putCat).delete(deleteCat);
+catRouter.route('/:id')
+    .get(getCatById)
+    .put(putCat)
+    .delete(deleteCat);
 
 export default catRouter;
