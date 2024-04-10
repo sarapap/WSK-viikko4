@@ -1,5 +1,6 @@
 GET http://localhost:3000/api/v1/cats
 
+
 ### Post
 
 POST http://localhost:3000/api/v1/cats
@@ -12,7 +13,7 @@ New cat title
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="owner"
 
-1
+37
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="file"; filename="cat.png"
 Content-Type: image/png

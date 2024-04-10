@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,macos,visualstudiocode
 
+
+*.env
+
 ### macOS ###
 # General
 .DS_Store
@@ -194,7 +197,6 @@ dist
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,visualstudiocode
-.env
 
 # ignore content of uploads folder
 uploads/*
