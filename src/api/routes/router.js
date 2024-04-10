@@ -1,22 +1,43 @@
 import express from 'express';
 import multer from 'multer';
-import { postCat } from '../controllers/cat-controller.js';
+
+import {
+    getCat,
+    getCatById,
+    postCat,
+    putCat,
+    deleteCat,
+} from '../controllers/controller.js';
 
 const catRouter = express.Router();
 
-// Set up Multer storage configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname);
+        const suffix = `${Date.now()} '-' ${Math.round(Math.random() * 1E9)}`
+        const prefix = `${file.originalname.split('.')[0].toLowerCase()}-${file.fieldname}`
+        let extension = 'jpg'
+
+        if (file.mimetype === 'image/png') {
+            extension = 'png'
+        }
+
+        console.log("file in storage", file)
+        const filename = `${prefix}-${suffix}.${extension}`
+        cb(null, filename)
     }
 });
 
-const upload = multer({ storage: storage });
+//storage destination overwrites
+const upload = multer({ //dest: 'uploads/', 
+    storage
+});
 
-// Route for posting a new cat with file upload
-catRouter.post('/', upload.single('catImage'), postCat);
+
+catRouter.route('/').get(getCat).post(upload.single('file'), postCat);
+
+catRouter.route('/:id').get(getCatById).put(putCat).delete(deleteCat);
 
 export default catRouter;

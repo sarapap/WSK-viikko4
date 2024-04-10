@@ -14,13 +14,16 @@ const getCatById = (req, res) => {
 };
 
 const postCat = (req, res) => {
-    console.log('Form Data:', req.body);
-    console.log('File Data:', req.file);
+    console.log('postCat', req.body);
+    console.log('File', req.file);
 
-    const filename = req.file.filename;
-    addCat({ image: filename });
-
-    res.status(201).json({ message: 'Cat added successfully.', filename });
+    const result = addCat(req.body, req.file);
+    if (result.cat_id) {
+        res.status(201);
+        res.json({ message: 'New cat added.', result });
+    } else {
+        res.sendStatus(400);
+    }
 };
 
 const putCat = (req, res) => {
