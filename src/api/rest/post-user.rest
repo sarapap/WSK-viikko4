@@ -17,3 +17,12 @@ Content-Type: application/json
   "name": "pekka",
   "role": "admin"
 }
+
+### Token test 
+POST http://localhost:3000/api/not-found?token={login.response.body.token}
+Content-Type: application/json
+
+{
+  "username": "admin123",
+  "password": "123"
+}

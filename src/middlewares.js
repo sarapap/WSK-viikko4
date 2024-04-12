@@ -53,4 +53,19 @@ const errorHandler = (err, req, res, next) => {
     });
 };
 
-export { createThumbnail, authenticateToken, notFoundHandler, errorHandler };
+const validationErrors = (req, res, next) => {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+        const messages = errors
+            .array()
+            .map((error) => `${error.path}: ${error.msg}`)
+            .join(', ');
+        const error = new Error(messages);
+        error.status = 400;
+        next(error);
+        return;
+    }
+    next();
+}
+
+export { createThumbnail, authenticateToken, notFoundHandler, errorHandler, validationErrors };

@@ -1,6 +1,6 @@
 import express from 'express';
 import api from './api/index.js';
-import { errorHandler, notFoundHandler } from './middlewares.js';
+import { errorHandler, notFoundHandler, validationErrors } from './middlewares.js';
 
 const app = express();
 
@@ -11,6 +11,7 @@ app.use('/api/v1', api);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
+app.use(validationErrors);
 
 app.get('/', (req, res) => {
     const cat = {
