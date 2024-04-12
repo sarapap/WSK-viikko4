@@ -43,12 +43,12 @@ const findUserById = async (id) => {
     return rows[0];
 };
 
-const addUser = (user) => {
+const addUser = async (user) => {
     const { name, username, email, role, password } = user;
     const sql = `INSERT INTO wsk_users (name, username, email, role, password)
                  VALUES (?, ?, ?, ?, ?)`;
     const data = [name, username, email, role, password];
-    const rows = promisePool.execute(sql, data);
+    const rows = await promisePool.execute(sql, data);
     if (rows[0].affectedRows === 0) {
         return false;
     }
