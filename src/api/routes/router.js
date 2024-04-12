@@ -33,6 +33,13 @@ const storage = multer.diskStorage({
 //storage destination overwrites
 const upload = multer({ //dest: 'uploads/', 
     storage
+    , fileFilter: (req, file, cb) => {
+        if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only images and videos are allowed!'));
+        }
+    }
 });
 
 

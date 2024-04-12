@@ -37,4 +37,20 @@ const authenticateToken = (req, res, next) => {
     }
 };
 
-export { createThumbnail, authenticateToken };
+const notFoundHandler = (req, res, next) => {
+    console.log("req", req);
+    const error = new Error(`Resource not found: ${req.originalUrl}`);
+    error.status = 404;
+
+    next(error);
+};
+
+const errorHandler = (err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({
+        message: err.message,
+        status: res.status || 500,
+    });
+};
+
+export { createThumbnail, authenticateToken, notFoundHandler, errorHandler };
