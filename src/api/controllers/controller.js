@@ -26,12 +26,22 @@ const postCat = (req, res) => {
     }
 };
 
-const putCat = (req, res) => {
-    res.sendStatus(200);
+const putCat = async (req, res) => {
+    const result = await modifyCat(req.body, req.params.id, res.locals.user);
+    if (!result) {
+        res.sendStatus(404);
+        return;
+    }
+    res.json(result);
 };
 
 const deleteCat = (req, res) => {
-    res.sendStatus(200);
+    const result = removeCat(req.params.id, res.locals.user);
+    if (!result) {
+        res.sendStatus(404);
+        return;
+    }
+    res.json(result);
 };
 
 export { getCat, getCatById, postCat, putCat, deleteCat };
