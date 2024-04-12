@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "password": "password",
-  "email": "asd",
+  "email": "asd@metropolia.fi",
   "username": "sara",
   "name": "pekka",
   "role": "admin"
