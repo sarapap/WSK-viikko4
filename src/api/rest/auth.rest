@@ -4,7 +4,7 @@ content-type: application/json
 
 {
   "username": "JohnDoe",
-  "password": "to-be-hashed-pw1"
+  "password": "password1"
 }
 
 ### Get my user info
