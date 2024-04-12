@@ -34,8 +34,11 @@ const addCat = async (cat) => {
     return { cat_id: rows[0].insertId };
 };
 
-const modifyCat = async (cat, id) => {
-    const sql = promisePool.format(`UPDATE wsk_cats SET ? WHERE cat_id = ?`, [cat, id]);
+const modifyCat = async (cat, id, user) => {
+    let sql = promisePool.format(`UPDATE wsk_cats SET ? WHERE cat_id = ? AND owner = ?`, [cat, id, user.user_id]);
+    if (user.role === 'admin') {
+        sql = promisePool.format(`UPDATE wsk_cats SET ? WHERE cat_id = ?`, [cat, id]);
+    }
     const rows = await promisePool.execute(sql);
     console.log('rows', rows);
     if (rows[0].affectedRows === 0) {

@@ -1,7 +1,13 @@
-import { listAllUsers, findUserById, addUser } from '../models/user-model.js';
+import { listAllUsers, findUserById, addUser, updateUser, removeUser } from '../models/user-model.js';
+import bcrypt from 'bcrypt';
 
-const getUser = (req, res) => {
-    res.json(listAllUsers());
+const getUser = async (req, res) => {
+    const users = res.json(await listAllUsers());
+    if (!users) {
+        res.sendStatus(404);
+        return;
+    }
+    res.json(users);
 };
 
 const getUserById = (req, res) => {
@@ -13,8 +19,9 @@ const getUserById = (req, res) => {
     }
 };
 
-const postUser = (req, res) => {
-    const result = addUser(req.body);
+const postUser = async (req, res) => {
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
+    const result = await addUser(req.body);
     if (result.user_id) {
         res.status(201);
         res.json({ message: 'New user added.', result });
@@ -23,12 +30,37 @@ const postUser = (req, res) => {
     }
 };
 
-const putUser = (req, res) => {
-    res.sendStatus(200);
+const putUser = async (req, res) => {
+    if (
+        res.locals.user.user_id !== Number(req.params.id) &&
+        res.locals.user.role !== 'admin'
+    ) {
+        res.sendStatus(403);
+        return;
+    }
+
+    const result = await modifyUser(req.body, req.params.id, res.locals.user);
+    if (!result) {
+        res.sendStatus(400);
+        return;
+    }
+    res.json(result);
 };
 
-const deleteUser = (req, res) => {
-    res.sendStatus(200);
+const deleteUser = async (req, res) => {
+    if (
+        res.locals.user.user_id !== Number(req.params.id) &&
+        res.locals.user.role !== 'admin'
+    ) {
+        res.sendStatus(403);
+        return;
+    }
+    const result = await removeUser(req.params.id);
+    if (!result) {
+        res.sendStatus(400);
+        return;
+    }
+    res.json(result);
 };
 
 export { getUser, getUserById, postUser, putUser, deleteUser };
