@@ -23,12 +23,22 @@ const postUser = (req, res) => {
     }
 };
 
-const putUser = (req, res) => {
-    res.sendStatus(200);
+const putUser = async (req, res) => {
+    const result = await modifyUser(req.body, req.params.id, res.locals.user);
+    if (!result) {
+        res.sendStatus(404);
+        return;
+    }
+    res.json({ message: 'User item updated.', result: result });
 };
 
-const deleteUser = (req, res) => {
-    res.sendStatus(200);
+const deleteUser = async (req, res) => {
+    const result = await removeUser(req.params.id, res.locals.user);
+    if (!result) {
+        res.sendStatus(404);
+        return;
+    }
+    res.json({ message: 'User item deleted.', result: result });
 };
 
 export { getUser, getUserById, postUser, putUser, deleteUser };
